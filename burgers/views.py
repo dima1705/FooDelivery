@@ -1,6 +1,5 @@
 from django.shortcuts import render, HttpResponseRedirect
-from django.contrib import messages
-from django.urls import reverse
+from django.contrib.auth.decorators import login_required
 from .models import Burger, Basket
 
 
@@ -16,17 +15,7 @@ def burgers(request):
     )
 
 
-def data_user(request):
-    context = {
-        'title': 'Оформление заказа',
-    }
-    return render(
-        request,
-        'burgers/profile.html',
-        context
-    )
-
-
+@login_required
 def basket_add(request, burger_id):
     burger = Burger.objects.get(id=burger_id)
     baskets = Basket.objects.filter(user=request.user, burgers=burger)
@@ -41,9 +30,8 @@ def basket_add(request, burger_id):
     return HttpResponseRedirect(request.META['HTTP_REFERER'])
 
 
+@login_required
 def basket_remove(request, basket_id):
     basket = Basket.objects.get(id=basket_id)
     basket.delete()
     return HttpResponseRedirect(request.META['HTTP_REFERER'])
-
-
