@@ -18,10 +18,17 @@ def burgers(request):
 @login_required
 def basket_add(request, burger_id):
     burger = Burger.objects.get(id=burger_id)
-    baskets = Basket.objects.filter(user=request.user, burgers=burger)
+    baskets = Basket.objects.filter(
+        user=request.user,
+        burgers=burger
+    )
 
     if not baskets.exists():
-        Basket.objects.create(user=request.user, burgers=burger, quantity=1)
+        Basket.objects.create(
+            user=request.user,
+            burgers=burger,
+            quantity=1
+        )
     else:
         basket = baskets.first()
         basket.quantity += 1
