@@ -1,0 +1,14 @@
+{% extends "burgers/base.html" %}
+
+<title>Благодарим вас!</title>
+
+{% block content %}
+    <h1>Thank you</h1>
+    <p>
+        Ваш заказ в обработке.
+        Вам позвонит наш менеджер для подтверждения заказа.
+        Ваш номер заказа
+        <strong>{{ order.id }}</strong>.</p>
+{% endblock %}
+
+
